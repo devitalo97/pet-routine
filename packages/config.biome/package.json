@@ -1,0 +1,7 @@
+{
+  "name": "@pack/biome",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
