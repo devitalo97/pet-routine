@@ -9,6 +9,7 @@
 		"dev": "bun --bun vite dev --port 3000",
 		"build": "bun --bun vite build",
 		"preview": "bun --bun vite preview",
+		"start": "bun run server.ts",
 		"test": "vitest run",
 		"format": "biome format",
 		"lint": "biome lint",
