@@ -157,3 +157,6 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
 - [Configuration Options](https://turborepo.dev/docs/reference/configuration)
 - [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- [Biome](https://biomejs.dev/guides/getting-started/)
+- [Bun Workspaces](https://bun.com/docs/guides/install/workspaces)
+- [Bun Cloud Run](https://bun.com/docs/guides/deployment/google-cloud-run)
