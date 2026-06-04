@@ -8,7 +8,6 @@ type Input = {
 	specie: string;
 	sex: "male" | "female";
 	birthday: Date;
-	weight: number;
 };
 
 type Output = {
