@@ -1,7 +1,7 @@
-import { integer, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 export const petTable = pgTable("pet", {
-	id: integer().primaryKey().generatedAlwaysAsIdentity(),
+	id: uuid().primaryKey(),
 	name: varchar({ length: 255 }).notNull(),
 	breed: varchar({ length: 255 }).notNull(),
 	specie: varchar({ length: 255 }).notNull(),
