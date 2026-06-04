@@ -13,7 +13,8 @@
 	"type": "module",
 	"devDependencies": {
 		"@pack/biome": "workspace:*",
-		"@pack/typescript": "workspace:*"
+		"@pack/typescript": "workspace:*",
+		"drizzle-kit": "^0.31.10"
 	},
 	"exports": {
 		".": {
@@ -26,10 +27,17 @@
 		}
 	},
 	"scripts": {
-		"dev": "bun --watch run index.ts",
+		"dev": "bun --watch run src/index.ts",
 		"build": "bun build src/index.ts --outdir dist && tsc",
-		"start": "bun run dist/index.js"
+		"start": "bun run dist/index.js",
+		"db:generate": "bunx --bun drizzle-kit generate --config ./src/infrastructure/db/drizzle.config.ts",
+		"db:migrate": "bunx --bun drizzle-kit migrate --config ./src/infrastructure/db/drizzle.config.ts",
+		"db:push": "bunx --bun drizzle-kit push --config ./src/infrastructure/db/drizzle.config.ts"
 	},
 	"module": "index.ts",
-	"private": true
+	"private": true,
+	"dependencies": {
+		"drizzle-orm": "^0.45.2",
+		"postgres": "^3.4.9"
+	}
 }
