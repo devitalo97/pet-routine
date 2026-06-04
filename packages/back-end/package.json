@@ -28,7 +28,7 @@
 	},
 	"scripts": {
 		"dev": "bun --watch run src/index.ts",
-		"build": "bun build src/index.ts --outdir dist && tsc",
+		"build": "bun build src/index.ts --target=bun --outdir dist && tsc",
 		"start": "bun run dist/index.js",
 		"db:generate": "bunx --bun drizzle-kit generate --config ./src/infrastructure/db/drizzle.config.ts",
 		"db:migrate": "bunx --bun drizzle-kit migrate --config ./src/infrastructure/db/drizzle.config.ts",
