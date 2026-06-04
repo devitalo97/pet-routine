@@ -1,0 +1,35 @@
+{
+	"name": "@pack/back-end",
+	"version": "1.0.0",
+	"description": "back end logics of pet routine app",
+	"keywords": [
+		"back-end"
+	],
+	"imports": {
+		"#/*": "./src/*"
+	},
+	"license": "ISC",
+	"author": "Ítalo de Souza",
+	"type": "module",
+	"devDependencies": {
+		"@pack/biome": "workspace:*",
+		"@pack/typescript": "workspace:*"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"import": "./dist/*.js"
+		}
+	},
+	"scripts": {
+		"dev": "bun --watch run index.ts",
+		"build": "bun build src/index.ts --outdir dist && tsc",
+		"start": "bun run dist/index.js"
+	},
+	"module": "index.ts",
+	"private": true
+}

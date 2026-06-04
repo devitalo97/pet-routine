@@ -1,0 +1,4 @@
+{
+	"extends": ["@pack/biome/biome"],
+	"root": false
+}

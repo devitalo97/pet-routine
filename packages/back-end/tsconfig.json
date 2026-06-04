@@ -1,0 +1,15 @@
+{
+	"extends": "@pack/typescript/bun.json",
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"noEmit": false,
+		"paths": {
+			"#/*": ["./src/*"]
+		}
+	},
+	"include": ["src"],
+	"exclude": ["dist"]
+}

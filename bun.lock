@@ -47,6 +47,14 @@
         "vitest": "^4.1.5",
       },
     },
+    "packages/back-end": {
+      "name": "@pack/back-end",
+      "version": "1.0.0",
+      "devDependencies": {
+        "@pack/biome": "workspace:*",
+        "@pack/typescript": "workspace:*",
+      },
+    },
     "packages/config.biome": {
       "name": "@pack/biome",
     },
@@ -231,6 +239,8 @@
     "@oxc-parser/binding-win32-x64-msvc": ["@oxc-parser/binding-win32-x64-msvc@0.120.0", "", { "os": "win32", "cpu": "x64" }, "sha512-ys+upfqNtSu58huAhJMBKl3XCkGzyVFBlMlGPzHeFKgpFF/OdgNs1MMf8oaJIbgMH8ZxgGF7qfue39eJohmKIg=="],
 
     "@oxc-project/types": ["@oxc-project/types@0.120.0", "", {}, "sha512-k1YNu55DuvAip/MGE1FTsIuU3FUCn6v/ujG9V7Nq5Df/kX2CWb13hhwD0lmJGMGqE+bE1MXvv9SZVnMzEXlWcg=="],
+
+    "@pack/back-end": ["@pack/back-end@workspace:packages/back-end"],
 
     "@pack/biome": ["@pack/biome@workspace:packages/config.biome"],
 
