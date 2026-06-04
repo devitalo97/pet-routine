@@ -1,1 +1,1 @@
-console.log("Hello world");
+export { AppBootstrap } from "#/infrastructure/app-bootstrap";
