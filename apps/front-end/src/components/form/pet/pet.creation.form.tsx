@@ -1,5 +1,21 @@
-import { Calendar, Heart, PawPrint, Plus, Scale } from "lucide-react";
+import { format } from "date-fns";
+import {
+	Calendar as CalendarIcon,
+	Heart,
+	PawPrint,
+	Plus,
+	Scale,
+} from "lucide-react";
+import { useState } from "react";
+import { Calendar } from "#/components/ui/calendar";
 import { Label } from "#/components/ui/label";
+
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "#/components/ui/popover";
+import { cn } from "#/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +29,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 function PetCreationForm() {
+	const [date, setDate] = useState<Date | undefined>(new Date());
+	const [isOpen, setIsOpen] = useState(false);
+
 	return (
 		<div className="min-h-screen bg-background relative pb-24">
 			{/* Hero Section */}
@@ -62,16 +81,36 @@ function PetCreationForm() {
 						<Card className="rounded-2xl shadow-sm border-slate-100 hover:border-primary/20 transition-all overflow-hidden border">
 							<CardContent className="p-6 flex items-center gap-4">
 								<div className="w-14 h-14 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
-									<Calendar className="w-6 h-6" />
+									<CalendarIcon className="w-6 h-6" />
 								</div>
 								<div className="flex-1">
 									<Label className="font-label-sm text-xs uppercase font-bold tracking-widest text-slate-500 mb-2 block">
 										Data de Nascimento
 									</Label>
-									<Input
-										type="date"
-										className="w-full bg-surface-container-lowest border-slate-100 rounded-xl px-3 py-5 font-body-md text-on-surface focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary transition-all shadow-none"
-									/>
+									<Popover open={isOpen} onOpenChange={setIsOpen}>
+										<PopoverTrigger asChild>
+											<Button
+												variant={"outline"}
+												className={cn(
+													"w-full justify-start bg-surface-container-lowest border-slate-100 rounded-xl px-3 py-5 font-body-md text-on-surface focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary transition-all shadow-none",
+													!date && "text-muted-foreground",
+												)}
+											>
+												{date ? format(date, "PPP") : <span>Pick a date</span>}
+											</Button>
+										</PopoverTrigger>
+										<PopoverContent className="w-auto p-0">
+											<Calendar
+												mode="single"
+												selected={date}
+												captionLayout="dropdown"
+												onSelect={(selectedDate) => {
+													setDate(selectedDate);
+													setIsOpen(false);
+												}}
+											/>
+										</PopoverContent>
+									</Popover>
 								</div>
 							</CardContent>
 						</Card>
