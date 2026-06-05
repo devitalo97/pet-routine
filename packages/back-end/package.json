@@ -14,7 +14,8 @@
 	"devDependencies": {
 		"@pack/biome": "workspace:*",
 		"@pack/typescript": "workspace:*",
-		"drizzle-kit": "^0.31.10"
+		"drizzle-kit": "^0.31.10",
+		"tsc-alias": "^1.8.17"
 	},
 	"exports": {
 		".": {
@@ -28,7 +29,7 @@
 	},
 	"scripts": {
 		"dev": "bun --watch run src/index.ts",
-		"build": "bun build src/index.ts --target=bun --outdir dist && tsc",
+		"build": "bun build src/index.ts --target=bun --outdir dist && tsc && tsc-alias",
 		"start": "bun run dist/index.js",
 		"db:generate": "bunx --bun drizzle-kit generate --config ./src/infrastructure/db/drizzle.config.ts",
 		"db:migrate": "bunx --bun drizzle-kit migrate --config ./src/infrastructure/db/drizzle.config.ts",

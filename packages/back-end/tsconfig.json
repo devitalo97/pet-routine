@@ -8,7 +8,12 @@
 		"noEmit": false,
 		"paths": {
 			"#/*": ["./src/*"]
-		}
+		},
+		"plugins": [
+			{
+				"name": "tsc-alias"
+			}
+		]
 	},
 	"include": ["src"],
 	"exclude": ["dist"]
