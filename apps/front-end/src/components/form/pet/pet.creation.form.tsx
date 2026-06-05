@@ -6,7 +6,6 @@ import {
 	Plus,
 	Scale,
 } from "lucide-react";
-import { useState } from "react";
 import { Calendar } from "#/components/ui/calendar";
 import { Label } from "#/components/ui/label";
 
@@ -27,10 +26,10 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { usePetCreationForm } from "./use-pet.creation.form";
 
 function PetCreationForm() {
-	const [date, setDate] = useState<Date | undefined>(new Date());
-	const [isOpen, setIsOpen] = useState(false);
+	const { date, setDate, isOpen, setIsOpen, form } = usePetCreationForm();
 
 	return (
 		<div className="min-h-screen bg-background relative pb-24">
