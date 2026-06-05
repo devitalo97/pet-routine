@@ -8,97 +8,115 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as PetNewRouteImport } from './routes/pet/new'
-import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as ProtectedRouteImport } from "./routes/_protected";
+import { Route as PetNewRouteImport } from "./routes/_protected/pet/new.tsx";
+import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
+import { Route as LoginRouteImport } from "./routes/login";
 
+const LoginRoute = LoginRouteImport.update({
+	id: "/login",
+	path: "/login",
+	getParentRoute: () => rootRouteImport,
+} as any);
+const ProtectedRoute = ProtectedRouteImport.update({
+	id: "/_protected",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const PetNewRoute = PetNewRouteImport.update({
-  id: '/pet/new',
-  path: '/pet/new',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoBetterAuthRoute = DemoBetterAuthRouteImport.update({
-  id: '/demo/better-auth',
-  path: '/demo/better-auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/pet/new",
+	path: "/pet/new",
+	getParentRoute: () => rootRouteImport,
+} as any);
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
+	id: "/api/auth/$",
+	path: "/api/auth/$",
+	getParentRoute: () => rootRouteImport,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/demo/better-auth': typeof DemoBetterAuthRoute
-  '/pet/new': typeof PetNewRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
+	"/": typeof ProtectedRoute;
+	"/login": typeof LoginRoute;
+	"/pet/new": typeof PetNewRoute;
+	"/api/auth/$": typeof ApiAuthSplatRoute;
 }
 export interface FileRoutesByTo {
-  '/demo/better-auth': typeof DemoBetterAuthRoute
-  '/pet/new': typeof PetNewRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
+	"/": typeof ProtectedRoute;
+	"/login": typeof LoginRoute;
+	"/pet/new": typeof PetNewRoute;
+	"/api/auth/$": typeof ApiAuthSplatRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/demo/better-auth': typeof DemoBetterAuthRoute
-  '/pet/new': typeof PetNewRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
+	__root__: typeof rootRouteImport;
+	"/_protected": typeof ProtectedRoute;
+	"/login": typeof LoginRoute;
+	"/pet/new": typeof PetNewRoute;
+	"/api/auth/$": typeof ApiAuthSplatRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/demo/better-auth' | '/pet/new' | '/api/auth/$'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/demo/better-auth' | '/pet/new' | '/api/auth/$'
-  id: '__root__' | '/demo/better-auth' | '/pet/new' | '/api/auth/$'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths: "/" | "/login" | "/pet/new" | "/api/auth/$";
+	fileRoutesByTo: FileRoutesByTo;
+	to: "/" | "/login" | "/pet/new" | "/api/auth/$";
+	id: "__root__" | "/_protected" | "/login" | "/pet/new" | "/api/auth/$";
+	fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  DemoBetterAuthRoute: typeof DemoBetterAuthRoute
-  PetNewRoute: typeof PetNewRoute
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+	ProtectedRoute: typeof ProtectedRoute;
+	LoginRoute: typeof LoginRoute;
+	PetNewRoute: typeof PetNewRoute;
+	ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/pet/new': {
-      id: '/pet/new'
-      path: '/pet/new'
-      fullPath: '/pet/new'
-      preLoaderRoute: typeof PetNewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/better-auth': {
-      id: '/demo/better-auth'
-      path: '/demo/better-auth'
-      fullPath: '/demo/better-auth'
-      preLoaderRoute: typeof DemoBetterAuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/login": {
+			id: "/login";
+			path: "/login";
+			fullPath: "/login";
+			preLoaderRoute: typeof LoginRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/_protected": {
+			id: "/_protected";
+			path: "";
+			fullPath: "/";
+			preLoaderRoute: typeof ProtectedRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/pet/new": {
+			id: "/pet/new";
+			path: "/pet/new";
+			fullPath: "/pet/new";
+			preLoaderRoute: typeof PetNewRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/api/auth/$": {
+			id: "/api/auth/$";
+			path: "/api/auth/$";
+			fullPath: "/api/auth/$";
+			preLoaderRoute: typeof ApiAuthSplatRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+	}
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  DemoBetterAuthRoute: DemoBetterAuthRoute,
-  PetNewRoute: PetNewRoute,
-  ApiAuthSplatRoute: ApiAuthSplatRoute,
-}
+	ProtectedRoute: ProtectedRoute,
+	LoginRoute: LoginRoute,
+	PetNewRoute: PetNewRoute,
+	ApiAuthSplatRoute: ApiAuthSplatRoute,
+};
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
+import type { createStart } from "@tanstack/react-start";
+import type { getRouter } from "./router.tsx";
+
+declare module "@tanstack/react-start" {
+	interface Register {
+		ssr: true;
+		router: Awaited<ReturnType<typeof getRouter>>;
+	}
 }
