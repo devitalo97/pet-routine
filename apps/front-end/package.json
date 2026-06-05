@@ -17,6 +17,7 @@
 		"check": "biome check"
 	},
 	"dependencies": {
+		"@pack/back-end": "workspace:*",
 		"@tailwindcss/vite": "^4.1.18",
 		"@tanstack/react-devtools": "latest",
 		"@tanstack/react-router": "latest",
