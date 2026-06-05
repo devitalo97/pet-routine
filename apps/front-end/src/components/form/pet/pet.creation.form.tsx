@@ -30,13 +30,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { usePetCreationForm } from "./use-pet.creation.form";
 
 function PetCreationForm() {
-	const { date, setDate, isOpen, setIsOpen, form } = usePetCreationForm();
+	const { date, setDate, isOpen, setIsOpen, form, onSubmit } = usePetCreationForm();
 
 	return (
 		<div className="min-h-screen bg-background relative pb-24">
 			<FormProvider {...form}>
 				<form
-					onSubmit={form.handleSubmit((data) => console.log(data))}
+					onSubmit={form.handleSubmit(onSubmit)}
 					className="w-full h-full"
 				>
 					{/* Hero Section */}

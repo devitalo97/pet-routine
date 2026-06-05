@@ -1,7 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
+import { createPetFn } from "@/lib/function/pet.function";
 
 const createPetSchema = z.object({
 	name: z.string().min(1, "O nome é obrigatório"),
@@ -16,6 +18,8 @@ function usePetCreationForm() {
 	const [date, setDate] = useState<Date | undefined>();
 	const [isOpen, setIsOpen] = useState(false);
 
+	const submitPet = useServerFn(createPetFn);
+
 	const form = useForm<z.infer<typeof createPetSchema>>({
 		resolver: zodResolver(createPetSchema),
 		defaultValues: {
@@ -28,7 +32,25 @@ function usePetCreationForm() {
 		},
 	});
 
-	return { form, date, setDate, isOpen, setIsOpen };
+	const onSubmit = async (values: z.infer<typeof createPetSchema>) => {
+		try {
+			const result = await submitPet({
+				data: {
+					name: values.name,
+					breed: values.breed,
+					specie: values.specie,
+					sex: "male",
+					birthday: values.birthday ? new Date(values.birthday) : new Date(),
+				},
+			});
+
+			console.log("Pet created successfully:", result);
+		} catch (error) {
+			console.error("Failed to create pet:", error);
+		}
+	};
+
+	return { form, date, setDate, isOpen, setIsOpen, onSubmit };
 }
 
 export { usePetCreationForm };
