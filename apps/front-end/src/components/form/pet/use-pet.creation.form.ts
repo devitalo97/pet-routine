@@ -4,15 +4,16 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 
 const createPetSchema = z.object({
-	name: z.string().min(1),
-	breed: z.string().min(1),
-	specie: z.string().min(1),
-	sex: z.enum(["male", "female"]),
-	birthday: z.string(),
+	name: z.string().min(1, "O nome é obrigatório"),
+	breed: z.string().min(1, "A raça é obrigatória"),
+	specie: z.string().min(1, "A espécie é obrigatória"),
+	birthday: z.string().optional(),
+	weight: z.string().optional(),
+	bio: z.string().optional(),
 });
 
 function usePetCreationForm() {
-	const [date, setDate] = useState<Date | undefined>(new Date());
+	const [date, setDate] = useState<Date | undefined>();
 	const [isOpen, setIsOpen] = useState(false);
 
 	const form = useForm<z.infer<typeof createPetSchema>>({
@@ -21,8 +22,9 @@ function usePetCreationForm() {
 			name: "",
 			breed: "",
 			specie: "",
-			sex: "male",
 			birthday: "",
+			weight: "",
+			bio: "",
 		},
 	});
 
