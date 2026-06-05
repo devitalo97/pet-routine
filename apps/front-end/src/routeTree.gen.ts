@@ -8,115 +8,129 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as ProtectedRouteImport } from "./routes/_protected";
-import { Route as PetNewRouteImport } from "./routes/_protected/pet/new.tsx";
-import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
-import { Route as LoginRouteImport } from "./routes/login";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ProtectedRouteImport } from './routes/_protected'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ProtectedPetNewRouteImport } from './routes/_protected/pet/new'
 
 const LoginRoute = LoginRouteImport.update({
-	id: "/login",
-	path: "/login",
-	getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProtectedRoute = ProtectedRouteImport.update({
-	id: "/_protected",
-	getParentRoute: () => rootRouteImport,
-} as any);
-const PetNewRoute = PetNewRouteImport.update({
-	id: "/pet/new",
-	path: "/pet/new",
-	getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/_protected',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-	id: "/api/auth/$",
-	path: "/api/auth/$",
-	getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedPetNewRoute = ProtectedPetNewRouteImport.update({
+  id: '/pet/new',
+  path: '/pet/new',
+  getParentRoute: () => ProtectedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-	"/": typeof ProtectedRoute;
-	"/login": typeof LoginRoute;
-	"/pet/new": typeof PetNewRoute;
-	"/api/auth/$": typeof ApiAuthSplatRoute;
+  '/': typeof ProtectedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/pet/new': typeof ProtectedPetNewRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
-	"/": typeof ProtectedRoute;
-	"/login": typeof LoginRoute;
-	"/pet/new": typeof PetNewRoute;
-	"/api/auth/$": typeof ApiAuthSplatRoute;
+  '/': typeof ProtectedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/pet/new': typeof ProtectedPetNewRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
-	__root__: typeof rootRouteImport;
-	"/_protected": typeof ProtectedRoute;
-	"/login": typeof LoginRoute;
-	"/pet/new": typeof PetNewRoute;
-	"/api/auth/$": typeof ApiAuthSplatRoute;
+  __root__: typeof rootRouteImport
+  '/_protected': typeof ProtectedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_protected/pet/new': typeof ProtectedPetNewRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
-	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths: "/" | "/login" | "/pet/new" | "/api/auth/$";
-	fileRoutesByTo: FileRoutesByTo;
-	to: "/" | "/login" | "/pet/new" | "/api/auth/$";
-	id: "__root__" | "/_protected" | "/login" | "/pet/new" | "/api/auth/$";
-	fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/login' | '/pet/new' | '/api/auth/$'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/login' | '/pet/new' | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/_protected'
+    | '/login'
+    | '/_protected/pet/new'
+    | '/api/auth/$'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-	ProtectedRoute: typeof ProtectedRoute;
-	LoginRoute: typeof LoginRoute;
-	PetNewRoute: typeof PetNewRoute;
-	ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
+  ProtectedRoute: typeof ProtectedRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
-declare module "@tanstack/react-router" {
-	interface FileRoutesByPath {
-		"/login": {
-			id: "/login";
-			path: "/login";
-			fullPath: "/login";
-			preLoaderRoute: typeof LoginRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/_protected": {
-			id: "/_protected";
-			path: "";
-			fullPath: "/";
-			preLoaderRoute: typeof ProtectedRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/pet/new": {
-			id: "/pet/new";
-			path: "/pet/new";
-			fullPath: "/pet/new";
-			preLoaderRoute: typeof PetNewRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/api/auth/$": {
-			id: "/api/auth/$";
-			path: "/api/auth/$";
-			fullPath: "/api/auth/$";
-			preLoaderRoute: typeof ApiAuthSplatRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-	}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected': {
+      id: '/_protected'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof ProtectedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected/pet/new': {
+      id: '/_protected/pet/new'
+      path: '/pet/new'
+      fullPath: '/pet/new'
+      preLoaderRoute: typeof ProtectedPetNewRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+  }
 }
+
+interface ProtectedRouteChildren {
+  ProtectedPetNewRoute: typeof ProtectedPetNewRoute
+}
+
+const ProtectedRouteChildren: ProtectedRouteChildren = {
+  ProtectedPetNewRoute: ProtectedPetNewRoute,
+}
+
+const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
+  ProtectedRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-	ProtectedRoute: ProtectedRoute,
-	LoginRoute: LoginRoute,
-	PetNewRoute: PetNewRoute,
-	ApiAuthSplatRoute: ApiAuthSplatRoute,
-};
+  ProtectedRoute: ProtectedRouteWithChildren,
+  LoginRoute: LoginRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+}
 export const routeTree = rootRouteImport
-	._addFileChildren(rootRouteChildren)
-	._addFileTypes<FileRouteTypes>();
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
-import type { createStart } from "@tanstack/react-start";
-import type { getRouter } from "./router.tsx";
-
-declare module "@tanstack/react-start" {
-	interface Register {
-		ssr: true;
-		router: Awaited<ReturnType<typeof getRouter>>;
-	}
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }
