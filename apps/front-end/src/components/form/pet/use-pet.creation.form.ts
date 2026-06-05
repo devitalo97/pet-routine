@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 import { createPetFn } from "@/lib/function/pet.function";
 
@@ -34,7 +35,7 @@ function usePetCreationForm() {
 
 	const onSubmit = async (values: z.infer<typeof createPetSchema>) => {
 		try {
-			const result = await submitPet({
+			await submitPet({
 				data: {
 					name: values.name,
 					breed: values.breed,
@@ -44,9 +45,25 @@ function usePetCreationForm() {
 				},
 			});
 
-			console.log("Pet created successfully:", result);
-		} catch (error) {
-			console.error("Failed to create pet:", error);
+			toast("Pet created successfully", {
+				position: "top-right",
+				classNames: {
+					content: "flex flex-col gap-2",
+				},
+				style: {
+					"--border-radius": "calc(var(--radius)  + 4px)",
+				} as React.CSSProperties,
+			});
+		} catch {
+			toast.error("Failed to create pet", {
+				position: "top-right",
+				classNames: {
+					content: "flex flex-col gap-2",
+				},
+				style: {
+					"--border-radius": "calc(var(--radius)  + 4px)",
+				} as React.CSSProperties,
+			});
 		}
 	};
 
