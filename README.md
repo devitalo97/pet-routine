@@ -160,3 +160,4 @@ Learn more about the power of Turborepo:
 - [Biome](https://biomejs.dev/guides/getting-started/)
 - [Bun Workspaces](https://bun.com/docs/guides/install/workspaces)
 - [Bun Cloud Run](https://bun.com/docs/guides/deployment/google-cloud-run)
+- [Dockerfile monorepo](https://turborepo.dev/docs/guides/tools/docker)
