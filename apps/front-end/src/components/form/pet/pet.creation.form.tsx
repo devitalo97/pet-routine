@@ -30,15 +30,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { usePetCreationForm } from "./use-pet.creation.form";
 
 function PetCreationForm() {
-	const { date, setDate, isOpen, setIsOpen, form, onSubmit } = usePetCreationForm();
+	const { date, setDate, isOpen, setIsOpen, form, onSubmit } =
+		usePetCreationForm();
 
 	return (
 		<div className="min-h-screen bg-background relative pb-24">
 			<FormProvider {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="w-full h-full"
-				>
+				<form onSubmit={form.handleSubmit(onSubmit)} className="w-full h-full">
 					{/* Hero Section */}
 					<section className="pt-24 pb-8 bg-gradient-to-b from-primary-fixed to-background flex flex-col items-center relative overflow-hidden transition-all duration-300">
 						<div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-primary opacity-10 rounded-full blur-3xl"></div>
@@ -209,6 +207,7 @@ function PetCreationForm() {
 								<Button
 									type="submit"
 									className="w-full bg-primary text-white font-headline-lg-mobile text-lg font-bold py-7 rounded-2xl shadow-lg shadow-primary/30 hover:bg-primary-container active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+									disabled={form.formState.isSubmitting}
 								>
 									<PawPrint className="w-6 h-6" />
 									Cadastrar Pet
