@@ -10,6 +10,12 @@
 		"deploy": {
 			"dependsOn": ["^deploy"]
 		},
+		"docker:build": {
+			"dependsOn": ["^docker:build"]
+		},
+		"docker:push": {
+			"dependsOn": ["^docker:push"]
+		},
 		"start": {
 			"dependsOn": ["^start"]
 		},
