@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ProtectedPetNewRouteImport } from './routes/_protected/pet/new'
+import { Route as ProtectedPetProfileIdRouteImport } from './routes/_protected/pet/profile.$id'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -33,18 +34,25 @@ const ProtectedPetNewRoute = ProtectedPetNewRouteImport.update({
   path: '/pet/new',
   getParentRoute: () => ProtectedRoute,
 } as any)
+const ProtectedPetProfileIdRoute = ProtectedPetProfileIdRouteImport.update({
+  id: '/pet/profile/$id',
+  path: '/pet/profile/$id',
+  getParentRoute: () => ProtectedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/pet/new': typeof ProtectedPetNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/pet/profile/$id': typeof ProtectedPetProfileIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
   '/pet/new': typeof ProtectedPetNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/pet/profile/$id': typeof ProtectedPetProfileIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -52,18 +60,20 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_protected/pet/new': typeof ProtectedPetNewRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_protected/pet/profile/$id': typeof ProtectedPetProfileIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/pet/new' | '/api/auth/$'
+  fullPaths: '/' | '/login' | '/pet/new' | '/api/auth/$' | '/pet/profile/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/pet/new' | '/api/auth/$'
+  to: '/' | '/login' | '/pet/new' | '/api/auth/$' | '/pet/profile/$id'
   id:
     | '__root__'
     | '/_protected'
     | '/login'
     | '/_protected/pet/new'
     | '/api/auth/$'
+    | '/_protected/pet/profile/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -102,15 +112,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedPetNewRouteImport
       parentRoute: typeof ProtectedRoute
     }
+    '/_protected/pet/profile/$id': {
+      id: '/_protected/pet/profile/$id'
+      path: '/pet/profile/$id'
+      fullPath: '/pet/profile/$id'
+      preLoaderRoute: typeof ProtectedPetProfileIdRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
   }
 }
 
 interface ProtectedRouteChildren {
   ProtectedPetNewRoute: typeof ProtectedPetNewRoute
+  ProtectedPetProfileIdRoute: typeof ProtectedPetProfileIdRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedPetNewRoute: ProtectedPetNewRoute,
+  ProtectedPetProfileIdRoute: ProtectedPetProfileIdRoute,
 }
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
