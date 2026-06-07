@@ -133,7 +133,7 @@ function PetCreationForm() {
 																)}
 															>
 																{date ? (
-																	format(date, "PPP")
+																	format(date, "dd/MM/yyyy")
 																) : (
 																	<span>Pick a date</span>
 																)}

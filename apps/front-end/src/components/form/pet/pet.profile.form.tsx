@@ -294,7 +294,7 @@ function PetProfileForm({ pet }: { pet: PetData }) {
 																			)}
 																		>
 																			{date ? (
-																				format(date, "PPP")
+																				format(date, "dd/MM/yyyy")
 																			) : (
 																				<span>Pick a date</span>
 																			)}
