@@ -111,7 +111,7 @@ function PetCreationForm() {
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 								{/* Nascimento Field */}
 								<Card className="rounded-2xl shadow-sm border-slate-100 hover:border-primary/20 transition-all overflow-hidden border">
-									<CardContent className="p-6 flex items-center gap-4">
+									<CardContent className="flex items-center gap-4">
 										<div className="w-14 h-14 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
 											<CalendarIcon className="w-6 h-6" />
 										</div>
@@ -161,7 +161,7 @@ function PetCreationForm() {
 
 								{/* Peso Field */}
 								<Card className="rounded-2xl shadow-sm border-slate-100 hover:border-primary/20 transition-all overflow-hidden border">
-									<CardContent className="p-6 flex items-center gap-4">
+									<CardContent className="flex items-center gap-4">
 										<div className="w-14 h-14 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center shrink-0">
 											<Scale className="w-6 h-6" />
 										</div>
@@ -181,9 +181,8 @@ function PetCreationForm() {
 								</Card>
 
 								{/* Personalidade/Sobre */}
-								<Card className="rounded-2xl shadow-sm border-slate-100 p-0 md:col-span-2 relative overflow-hidden group border">
-									<div className="absolute left-0 top-0 bottom-0 w-1 bg-primary z-10"></div>
-									<CardContent className="p-6 flex flex-col justify-center">
+								<Card className="rounded-2xl shadow-sm border-slate-100 md:col-span-2 relative overflow-hidden group border">
+									<CardContent className="flex flex-col justify-center">
 										<div className="flex items-center gap-2 mb-4">
 											<Heart className="w-5 h-5 text-primary" />
 											<h3 className="font-label-sm text-xs uppercase font-bold tracking-widest text-slate-500">
