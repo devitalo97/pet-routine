@@ -221,7 +221,7 @@ function PetProfileForm({ pet }: { pet: PetData }) {
 					</section>
 
 					{/* Navigation Tabs */}
-					<div className="px-6 mb-8 sticky top-16 z-40 bg-background/90 backdrop-blur-sm py-2">
+					<div className="px-6 mb-8 bg-background/90 py-2">
 						<div className="flex bg-surface-container-high p-1 rounded-full w-full max-w-md mx-auto shadow-sm">
 							<button
 								type="button"
