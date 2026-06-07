@@ -162,7 +162,7 @@ function PetCreationForm() {
 								{/* Peso Field */}
 								<Card className="rounded-2xl shadow-sm border-slate-100 hover:border-primary/20 transition-all overflow-hidden border">
 									<CardContent className="flex items-center gap-4">
-										<div className="w-14 h-14 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center shrink-0">
+										<div className="w-14 h-14 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
 											<Scale className="w-6 h-6" />
 										</div>
 										<Field className="flex-1">
