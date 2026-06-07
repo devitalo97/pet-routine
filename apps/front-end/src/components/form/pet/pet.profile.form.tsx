@@ -336,21 +336,16 @@ function PetProfileForm({ pet }: { pet: PetData }) {
 											</div>
 											<div className="flex-1">
 												<Label className="font-label-sm text-xs uppercase font-bold tracking-widest text-slate-500 mb-2 block">
-													Peso
+													Peso (kg)
 												</Label>
 												{isEditing ? (
 													<Field className="flex-1">
-														<div className="flex items-center gap-2">
-															<Input
-																type="number"
-																placeholder="Quanto ele pesa?"
-																className="w-full bg-surface-container-lowest border-slate-100 rounded-xl px-3 py-5 font-body-md text-on-surface focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary transition-all shadow-none"
-																{...form.register("weight")}
-															/>
-															<span className="font-body-md font-semibold text-on-surface">
-																kg
-															</span>
-														</div>
+														<Input
+															type="number"
+															placeholder="Quanto ele pesa?"
+															className="w-full bg-surface-container-lowest border-slate-100 rounded-xl px-3 py-5 font-body-md text-on-surface focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary transition-all shadow-none"
+															{...form.register("weight")}
+														/>
 														<FieldError
 															errors={[form.formState.errors.weight]}
 														/>
