@@ -1,4 +1,4 @@
-import { PetProfileForm } from "#/components/form/pet/pet.profile.form";
+import { PetProfileForm } from "#/components/form/pet/profile/pet.profile.form";
 import { Route } from "#/routes/_protected/pet/profile.$id";
 
 function PetProfilePage() {

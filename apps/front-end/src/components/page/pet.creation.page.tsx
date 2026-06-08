@@ -1,4 +1,4 @@
-import { PetCreationForm } from "#/components/form/pet/pet.creation.form";
+import { PetCreationForm } from "#/components/form/pet/creation/pet.creation.form";
 
 function PetCreationPage() {
 	return <PetCreationForm />;

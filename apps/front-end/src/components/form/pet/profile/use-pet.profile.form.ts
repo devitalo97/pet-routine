@@ -19,8 +19,8 @@ export type PetProfileFormValues = z.infer<typeof petProfileSchema>;
 export function usePetProfileForm(initialData?: Partial<PetProfileFormValues>) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [activeTab, setActiveTab] = useState<
-		"caracteristicas" | "rotinas" | "fotos"
-	>("caracteristicas");
+		"characteristics" | "routine" | "photos"
+	>("characteristics");
 	const [date, setDate] = useState<Date | undefined>(
 		initialData?.birthday ? new Date(initialData.birthday) : undefined,
 	);
@@ -72,7 +72,7 @@ export function usePetProfileForm(initialData?: Partial<PetProfileFormValues>) {
 	};
 
 	const calculateAge = (birthDateString?: Date) => {
-		if (!birthDateString) return "Desconhecida";
+		if (!birthDateString) return "Unknown";
 		const birth = new Date(birthDateString);
 		const today = new Date();
 		let years = today.getFullYear() - birth.getFullYear();
@@ -88,9 +88,9 @@ export function usePetProfileForm(initialData?: Partial<PetProfileFormValues>) {
 				(today.getFullYear() - birth.getFullYear()) * 12 +
 				today.getMonth() -
 				birth.getMonth();
-			return `${months} ${months === 1 ? "mês" : "meses"}`;
+			return `${months} ${months === 1 ? "month" : "months"}`;
 		}
-		return `${years} ${years === 1 ? "ano" : "anos"}`;
+		return `${years} ${years === 1 ? "year" : "years"}`;
 	};
 
 	return {

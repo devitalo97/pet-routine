@@ -33,7 +33,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { usePetProfileForm } from "./use-pet.profile.form";
+import { usePetProfileForm } from "../creation/use-pet.profile.form";
 
 const speciesOptions = [
 	{ value: "cachorro", label: "Cachorro" },
