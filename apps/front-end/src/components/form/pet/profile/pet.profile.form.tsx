@@ -1,25 +1,6 @@
 import type { PetData } from "@pack/back-end/core/domain/pet/pet.entity";
-import { format } from "date-fns";
-import {
-	Bell,
-	Calendar as CalendarIcon,
-	Camera,
-	Check,
-	Heart,
-	PawPrint,
-	Pencil,
-	Plus,
-	Scale,
-	X,
-} from "lucide-react";
+import { Camera, Check, PawPrint, Pencil, Plus } from "lucide-react";
 import { Controller, FormProvider } from "react-hook-form";
-import { Calendar } from "#/components/ui/calendar";
-import { Label } from "#/components/ui/label";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "#/components/ui/popover";
 import { cn } from "#/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -32,35 +13,9 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { usePetProfileForm } from "../creation/use-pet.profile.form";
-
-const speciesOptions = [
-	{ value: "cachorro", label: "Cachorro" },
-	{ value: "gato", label: "Gato" },
-	{ value: "passaro", label: "Pássaro" },
-	{ value: "coelho", label: "Coelho" },
-	{ value: "hamster", label: "Hamster" },
-	{ value: "outro", label: "Outro" },
-];
-
-const breedsBySpecies: Record<string, { value: string; label: string }[]> = {
-	cachorro: [
-		{ value: "golden retriever", label: "Golden Retriever" },
-		{ value: "labrador", label: "Labrador" },
-		{ value: "bulldog", label: "Bulldog" },
-		{ value: "poodle", label: "Poodle" },
-		{ value: "beagle", label: "Beagle" },
-		{ value: "outro", label: "Outro" },
-	],
-	gato: [
-		{ value: "persa", label: "Persa" },
-		{ value: "siames", label: "Siamês" },
-		{ value: "maine coon", label: "Maine Coon" },
-		{ value: "ragdoll", label: "Ragdoll" },
-		{ value: "outro", label: "Outro" },
-	],
-};
+import { breedsBySpecies, speciesOptions } from "../pet.data";
+import { CharacteristicsForm } from "./pet.characteristics.form";
+import { usePetProfileForm } from "./use-pet.profile.form";
 
 function PetProfileForm({ pet }: { pet: PetData }) {
 	const {
@@ -96,7 +51,7 @@ function PetProfileForm({ pet }: { pet: PetData }) {
 						<div className="relative w-32 h-32 mb-6 z-10 group">
 							<div className="relative w-full h-full">
 								<img
-									alt={values.name || "Foto do pet"}
+									alt={values.name || "Pet Photo"}
 									className="w-full h-full object-cover rounded-full border-4 border-surface shadow-xl"
 									src={values.imageUrl}
 								/>
@@ -191,8 +146,8 @@ function PetProfileForm({ pet }: { pet: PetData }) {
 																	values.specie?.toLowerCase()
 																] || [
 																	{
-																		value: values.breed || "outro",
-																		label: values.breed || "Outro",
+																		value: values.breed || "other",
+																		label: values.breed || "Other",
 																	},
 																]
 															).map((opt) => (
@@ -227,197 +182,60 @@ function PetProfileForm({ pet }: { pet: PetData }) {
 								type="button"
 								className={cn(
 									"flex-1 py-2 font-label-sm text-xs uppercase text-center rounded-full transition-all duration-300 ease-out",
-									activeTab === "caracteristicas"
+									activeTab === "characteristics"
 										? "bg-surface shadow-md text-primary"
 										: "text-on-surface-variant hover:bg-surface-variant/80",
 								)}
-								onClick={() => setActiveTab("caracteristicas")}
+								onClick={() => setActiveTab("characteristics")}
 							>
-								Características
+								Characteristics
 							</button>
 							<button
 								type="button"
 								className={cn(
 									"flex-1 py-2 font-label-sm text-xs uppercase text-center rounded-full transition-all duration-300 ease-out",
-									activeTab === "rotinas"
+									activeTab === "routine"
 										? "bg-surface shadow-md text-primary"
 										: "text-on-surface-variant hover:bg-surface-variant/80",
 								)}
-								onClick={() => setActiveTab("rotinas")}
+								onClick={() => setActiveTab("routine")}
 							>
-								Rotinas
+								Routine
 							</button>
 							<button
 								type="button"
 								className={cn(
 									"flex-1 py-2 font-label-sm text-xs uppercase text-center rounded-full transition-all duration-300 ease-out",
-									activeTab === "fotos"
+									activeTab === "photos"
 										? "bg-surface shadow-md text-primary"
 										: "text-on-surface-variant hover:bg-surface-variant/80",
 								)}
-								onClick={() => setActiveTab("fotos")}
+								onClick={() => setActiveTab("photos")}
 							>
-								Fotos
+								Photos
 							</button>
 						</div>
 					</div>
 
 					{/* Main Content Area */}
 					<main className="px-6 max-w-4xl mx-auto">
-						{/* TAB: Características */}
-						{activeTab === "caracteristicas" && (
-							<section className="block animate-[fadeIn_0.3s_ease-out]">
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-									{/* Idade Field */}
-									<Card className="rounded-2xl shadow-sm border-slate-100 hover:border-primary/20 transition-all overflow-hidden border">
-										<CardContent className="flex items-center gap-4">
-											<div className="w-14 h-14 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
-												<CalendarIcon className="w-6 h-6" />
-											</div>
-											<div className="flex-1">
-												<Label className="font-label-sm text-xs uppercase font-bold tracking-widest text-slate-500 mb-2 block">
-													Idade
-												</Label>
-												{isEditing ? (
-													<Field className="flex-1">
-														<Controller
-															control={form.control}
-															name="birthday"
-															render={({ field }) => (
-																<Popover open={isOpen} onOpenChange={setIsOpen}>
-																	<PopoverTrigger asChild>
-																		<Button
-																			variant={"outline"}
-																			className={cn(
-																				"w-full justify-start bg-surface-container-lowest border-slate-100 rounded-xl px-3 py-5 font-body-md text-on-surface focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary transition-all shadow-none",
-																				!date && "text-muted-foreground",
-																			)}
-																		>
-																			{date ? (
-																				format(date, "dd/MM/yyyy")
-																			) : (
-																				<span>Pick a date</span>
-																			)}
-																		</Button>
-																	</PopoverTrigger>
-																	<PopoverContent className="w-auto p-0">
-																		<Calendar
-																			mode="single"
-																			selected={date}
-																			captionLayout="dropdown"
-																			onSelect={(selectedDate) => {
-																				setDate(selectedDate);
-																				field.onChange(selectedDate);
-																				setIsOpen(false);
-																			}}
-																		/>
-																	</PopoverContent>
-																</Popover>
-															)}
-														/>
-														<FieldError
-															errors={[form.formState.errors.birthday]}
-														/>
-													</Field>
-												) : (
-													<p className="font-display-lg text-2xl font-semibold text-on-surface">
-														{calculateAge(values.birthday)}
-													</p>
-												)}
-											</div>
-										</CardContent>
-									</Card>
-
-									{/* Peso Field */}
-									<Card className="rounded-2xl shadow-sm border-slate-100 hover:border-primary/20 transition-all overflow-hidden border">
-										<CardContent className="flex items-center gap-4">
-											<div className="w-14 h-14 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
-												<Scale className="w-6 h-6" />
-											</div>
-											<div className="flex-1">
-												<Label className="font-label-sm text-xs uppercase font-bold tracking-widest text-slate-500 mb-2 block">
-													Peso (kg)
-												</Label>
-												{isEditing ? (
-													<Field className="flex-1">
-														<Input
-															type="number"
-															placeholder="Quanto ele pesa?"
-															className="w-full bg-surface-container-lowest border-slate-100 rounded-xl px-3 py-5 font-body-md text-on-surface focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary transition-all shadow-none"
-															{...form.register("weight")}
-														/>
-														<FieldError
-															errors={[form.formState.errors.weight]}
-														/>
-													</Field>
-												) : (
-													<p className="font-display-lg text-2xl font-semibold text-on-surface">
-														{values.weight
-															? `${values.weight} kg`
-															: "Não informado"}
-													</p>
-												)}
-											</div>
-										</CardContent>
-									</Card>
-
-									{/* Personalidade/Sobre */}
-									<Card className="rounded-2xl shadow-sm border-slate-100 md:col-span-2 relative overflow-hidden group border">
-										<CardContent className="flex flex-col justify-center">
-											<div className="flex items-center gap-2 mb-4">
-												<Heart className="w-5 h-5 text-primary" />
-												<h3 className="font-label-sm text-xs uppercase font-bold tracking-widest text-slate-500">
-													Sobre {values.name ? `o ${values.name}` : "o pet"}
-												</h3>
-											</div>
-											{isEditing ? (
-												<Field>
-													<Textarea
-														placeholder="Conte um pouco sobre as manias e o jeito dele..."
-														rows={4}
-														className="w-full bg-surface-container-lowest border-slate-100 rounded-xl px-4 py-3 font-body-md text-on-surface focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary transition-all resize-none shadow-none"
-														{...form.register("bio")}
-													/>
-													<FieldError errors={[form.formState.errors.bio]} />
-												</Field>
-											) : (
-												<p className="font-body-md text-base text-on-surface leading-relaxed">
-													{values.bio || "Nenhuma bio informada."}
-												</p>
-											)}
-										</CardContent>
-									</Card>
-								</div>
-
-								{/* Action Buttons */}
-								{isEditing && (
-									<div className="flex gap-3 mt-8 justify-center mb-12">
-										<Button
-											type="button"
-											variant="outline"
-											size="lg"
-											onClick={handleCancel}
-											className="rounded-full px-8 border-outline-variant font-headline-lg-mobile text-base"
-										>
-											<X className="h-4 w-4 mr-2" />
-											Cancelar
-										</Button>
-										<Button
-											type="submit"
-											size="lg"
-											className="rounded-full px-8 bg-primary hover:bg-primary/90 text-white font-headline-lg-mobile text-base"
-											disabled={form.formState.isSubmitting}
-										>
-											<Check className="h-4 w-4 mr-2" />
-											Salvar Alterações
-										</Button>
-									</div>
-								)}
-							</section>
+						{/* TAB: Characteristics */}
+						{activeTab === "characteristics" && (
+							<CharacteristicsForm
+								form={form}
+								isEditing={isEditing}
+								date={date}
+								setDate={setDate}
+								isOpen={isOpen}
+								setIsOpen={setIsOpen}
+								calculateAge={calculateAge}
+								handleCancel={handleCancel}
+								values={values}
+							/>
 						)}
 
-						{/* TAB: Rotinas */}
-						{activeTab === "rotinas" && (
+						{/* TAB: Routine */}
+						{activeTab === "routine" && (
 							<section className="block animate-[fadeIn_0.3s_ease-out]">
 								<div className="flex justify-between items-center mb-6">
 									<h2 className="font-headline-lg-mobile text-2xl font-semibold text-on-surface">
@@ -497,8 +315,8 @@ function PetProfileForm({ pet }: { pet: PetData }) {
 							</section>
 						)}
 
-						{/* TAB: Fotos */}
-						{activeTab === "fotos" && (
+						{/* TAB: Photos */}
+						{activeTab === "photos" && (
 							<section className="block animate-[fadeIn_0.3s_ease-out]">
 								<div className="flex justify-end mb-4">
 									<Button
